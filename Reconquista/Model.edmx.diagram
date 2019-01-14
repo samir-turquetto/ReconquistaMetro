@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="03395402160e40659154b7f81d2645b8" Name="Diagram1">
+        <EntityTypeShape EntityType="ReconquistaModel.Anexo" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReconquistaModel.Bem" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReconquistaModel.Cliente" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReconquistaModel.Cliente_Bem" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ReconquistaModel.Telefone" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="ReconquistaModel.FK__Anexo__ID_bem__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="ReconquistaModel.FK__Bem__ID_cli__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="ReconquistaModel.FK__Cliente_B__ID_be__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="ReconquistaModel.FK__Cliente_B__ID_cl__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="ReconquistaModel.FK__Telefone__ID_cli__267ABA7A" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

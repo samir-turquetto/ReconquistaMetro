@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ReconquistaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Anexo">
+          <Key>
+            <PropertyRef Name="ID_anexo" />
+          </Key>
+          <Property Name="ID_anexo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Arquivo_anexo" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ID_bem" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bem">
+          <Key>
+            <PropertyRef Name="ID_bem" />
+          </Key>
+          <Property Name="ID_bem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome_bem" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Placa_bem" Type="varchar" MaxLength="10" />
+          <Property Name="Obs_bem" Type="text" />
+          <Property Name="ID_cli" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ID_cli" />
+          </Key>
+          <Property Name="ID_cli" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome_cli" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tipo_cli" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="RG_IE_cli" Type="varchar" MaxLength="20" />
+          <Property Name="CPF_CNPJ_cli" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="Email_cli" Type="varchar" MaxLength="50" />
+          <Property Name="Obs_cli" Type="text" />
+        </EntityType>
+        <EntityType Name="Cliente_Bem">
+          <Key>
+            <PropertyRef Name="ID_bem" />
+            <PropertyRef Name="ID_cli" />
+          </Key>
+          <Property Name="ID_bem" Type="int" Nullable="false" />
+          <Property Name="ID_cli" Type="int" Nullable="false" />
+          <Property Name="Dta_vigencia" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Telefone">
+          <Key>
+            <PropertyRef Name="ID_tel" />
+          </Key>
+          <Property Name="ID_tel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Telefone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contato_tel" Type="varchar" MaxLength="50" />
+          <Property Name="ID_cli" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Anexo__ID_bem__29572725">
+          <End Role="Bem" Type="Self.Bem" Multiplicity="1" />
+          <End Role="Anexo" Type="Self.Anexo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bem">
+              <PropertyRef Name="ID_bem" />
+            </Principal>
+            <Dependent Role="Anexo">
+              <PropertyRef Name="ID_bem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bem__ID_cli__1FCDBCEB">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Bem" Type="Self.Bem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cli" />
+            </Principal>
+            <Dependent Role="Bem">
+              <PropertyRef Name="ID_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente_B__ID_be__22AA2996">
+          <End Role="Bem" Type="Self.Bem" Multiplicity="1" />
+          <End Role="Cliente_Bem" Type="Self.Cliente_Bem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bem">
+              <PropertyRef Name="ID_bem" />
+            </Principal>
+            <Dependent Role="Cliente_Bem">
+              <PropertyRef Name="ID_bem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente_B__ID_cl__239E4DCF">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Cliente_Bem" Type="Self.Cliente_Bem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cli" />
+            </Principal>
+            <Dependent Role="Cliente_Bem">
+              <PropertyRef Name="ID_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Telefone__ID_cli__267ABA7A">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Telefone" Type="Self.Telefone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cli" />
+            </Principal>
+            <Dependent Role="Telefone">
+              <PropertyRef Name="ID_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReconquistaModelStoreContainer">
+          <EntitySet Name="Anexo" EntityType="Self.Anexo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bem" EntityType="Self.Bem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente_Bem" EntityType="Self.Cliente_Bem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Telefone" EntityType="Self.Telefone" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Anexo__ID_bem__29572725" Association="Self.FK__Anexo__ID_bem__29572725">
+            <End Role="Bem" EntitySet="Bem" />
+            <End Role="Anexo" EntitySet="Anexo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bem__ID_cli__1FCDBCEB" Association="Self.FK__Bem__ID_cli__1FCDBCEB">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Bem" EntitySet="Bem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente_B__ID_be__22AA2996" Association="Self.FK__Cliente_B__ID_be__22AA2996">
+            <End Role="Bem" EntitySet="Bem" />
+            <End Role="Cliente_Bem" EntitySet="Cliente_Bem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente_B__ID_cl__239E4DCF" Association="Self.FK__Cliente_B__ID_cl__239E4DCF">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cliente_Bem" EntitySet="Cliente_Bem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Telefone__ID_cli__267ABA7A" Association="Self.FK__Telefone__ID_cli__267ABA7A">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Telefone" EntitySet="Telefone" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ReconquistaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Anexo">
+          <Key>
+            <PropertyRef Name="ID_anexo" />
+          </Key>
+          <Property Name="ID_anexo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Arquivo_anexo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ID_bem" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bem" Relationship="Self.FK__Anexo__ID_bem__29572725" FromRole="Anexo" ToRole="Bem" />
+        </EntityType>
+        <EntityType Name="Bem">
+          <Key>
+            <PropertyRef Name="ID_bem" />
+          </Key>
+          <Property Name="ID_bem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome_bem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Placa_bem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Obs_bem" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ID_cli" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Anexo" Relationship="Self.FK__Anexo__ID_bem__29572725" FromRole="Bem" ToRole="Anexo" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Bem__ID_cli__1FCDBCEB" FromRole="Bem" ToRole="Cliente" />
+          <NavigationProperty Name="Cliente_Bem" Relationship="Self.FK__Cliente_B__ID_be__22AA2996" FromRole="Bem" ToRole="Cliente_Bem" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="ID_cli" />
+          </Key>
+          <Property Name="ID_cli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome_cli" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tipo_cli" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RG_IE_cli" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CPF_CNPJ_cli" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email_cli" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Obs_cli" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bem" Relationship="Self.FK__Bem__ID_cli__1FCDBCEB" FromRole="Cliente" ToRole="Bem" />
+          <NavigationProperty Name="Cliente_Bem" Relationship="Self.FK__Cliente_B__ID_cl__239E4DCF" FromRole="Cliente" ToRole="Cliente_Bem" />
+          <NavigationProperty Name="Telefone" Relationship="Self.FK__Telefone__ID_cli__267ABA7A" FromRole="Cliente" ToRole="Telefone" />
+        </EntityType>
+        <EntityType Name="Cliente_Bem">
+          <Key>
+            <PropertyRef Name="ID_bem" />
+            <PropertyRef Name="ID_cli" />
+          </Key>
+          <Property Name="ID_bem" Type="Int32" Nullable="false" />
+          <Property Name="ID_cli" Type="Int32" Nullable="false" />
+          <Property Name="Dta_vigencia" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Bem" Relationship="Self.FK__Cliente_B__ID_be__22AA2996" FromRole="Cliente_Bem" ToRole="Bem" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente_B__ID_cl__239E4DCF" FromRole="Cliente_Bem" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Telefone">
+          <Key>
+            <PropertyRef Name="ID_tel" />
+          </Key>
+          <Property Name="ID_tel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Telefone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contato_tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_cli" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Telefone__ID_cli__267ABA7A" FromRole="Telefone" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="FK__Anexo__ID_bem__29572725">
+          <End Role="Bem" Type="Self.Bem" Multiplicity="1" />
+          <End Role="Anexo" Type="Self.Anexo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bem">
+              <PropertyRef Name="ID_bem" />
+            </Principal>
+            <Dependent Role="Anexo">
+              <PropertyRef Name="ID_bem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bem__ID_cli__1FCDBCEB">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Bem" Type="Self.Bem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cli" />
+            </Principal>
+            <Dependent Role="Bem">
+              <PropertyRef Name="ID_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente_B__ID_be__22AA2996">
+          <End Role="Bem" Type="Self.Bem" Multiplicity="1" />
+          <End Role="Cliente_Bem" Type="Self.Cliente_Bem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bem">
+              <PropertyRef Name="ID_bem" />
+            </Principal>
+            <Dependent Role="Cliente_Bem">
+              <PropertyRef Name="ID_bem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente_B__ID_cl__239E4DCF">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Cliente_Bem" Type="Self.Cliente_Bem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cli" />
+            </Principal>
+            <Dependent Role="Cliente_Bem">
+              <PropertyRef Name="ID_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Telefone__ID_cli__267ABA7A">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Telefone" Type="Self.Telefone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="ID_cli" />
+            </Principal>
+            <Dependent Role="Telefone">
+              <PropertyRef Name="ID_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ReconquistaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Anexo" EntityType="Self.Anexo" />
+          <EntitySet Name="Bem" EntityType="Self.Bem" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Cliente_Bem" EntityType="Self.Cliente_Bem" />
+          <EntitySet Name="Telefone" EntityType="Self.Telefone" />
+          <AssociationSet Name="FK__Anexo__ID_bem__29572725" Association="Self.FK__Anexo__ID_bem__29572725">
+            <End Role="Bem" EntitySet="Bem" />
+            <End Role="Anexo" EntitySet="Anexo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bem__ID_cli__1FCDBCEB" Association="Self.FK__Bem__ID_cli__1FCDBCEB">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Bem" EntitySet="Bem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente_B__ID_be__22AA2996" Association="Self.FK__Cliente_B__ID_be__22AA2996">
+            <End Role="Bem" EntitySet="Bem" />
+            <End Role="Cliente_Bem" EntitySet="Cliente_Bem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente_B__ID_cl__239E4DCF" Association="Self.FK__Cliente_B__ID_cl__239E4DCF">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Cliente_Bem" EntitySet="Cliente_Bem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Telefone__ID_cli__267ABA7A" Association="Self.FK__Telefone__ID_cli__267ABA7A">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Telefone" EntitySet="Telefone" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ReconquistaModelStoreContainer" CdmEntityContainer="ReconquistaEntities">
+          <EntitySetMapping Name="Anexo">
+            <EntityTypeMapping TypeName="ReconquistaModel.Anexo">
+              <MappingFragment StoreEntitySet="Anexo">
+                <ScalarProperty Name="ID_anexo" ColumnName="ID_anexo" />
+                <ScalarProperty Name="Arquivo_anexo" ColumnName="Arquivo_anexo" />
+                <ScalarProperty Name="ID_bem" ColumnName="ID_bem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bem">
+            <EntityTypeMapping TypeName="ReconquistaModel.Bem">
+              <MappingFragment StoreEntitySet="Bem">
+                <ScalarProperty Name="ID_bem" ColumnName="ID_bem" />
+                <ScalarProperty Name="Nome_bem" ColumnName="Nome_bem" />
+                <ScalarProperty Name="Placa_bem" ColumnName="Placa_bem" />
+                <ScalarProperty Name="Obs_bem" ColumnName="Obs_bem" />
+                <ScalarProperty Name="ID_cli" ColumnName="ID_cli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="ReconquistaModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="ID_cli" ColumnName="ID_cli" />
+                <ScalarProperty Name="Nome_cli" ColumnName="Nome_cli" />
+                <ScalarProperty Name="Tipo_cli" ColumnName="Tipo_cli" />
+                <ScalarProperty Name="RG_IE_cli" ColumnName="RG_IE_cli" />
+                <ScalarProperty Name="CPF_CNPJ_cli" ColumnName="CPF_CNPJ_cli" />
+                <ScalarProperty Name="Email_cli" ColumnName="Email_cli" />
+                <ScalarProperty Name="Obs_cli" ColumnName="Obs_cli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente_Bem">
+            <EntityTypeMapping TypeName="ReconquistaModel.Cliente_Bem">
+              <MappingFragment StoreEntitySet="Cliente_Bem">
+                <ScalarProperty Name="ID_bem" ColumnName="ID_bem" />
+                <ScalarProperty Name="ID_cli" ColumnName="ID_cli" />
+                <ScalarProperty Name="Dta_vigencia" ColumnName="Dta_vigencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefone">
+            <EntityTypeMapping TypeName="ReconquistaModel.Telefone">
+              <MappingFragment StoreEntitySet="Telefone">
+                <ScalarProperty Name="ID_tel" ColumnName="ID_tel" />
+                <ScalarProperty Name="Telefone1" ColumnName="Telefone" />
+                <ScalarProperty Name="Contato_tel" ColumnName="Contato_tel" />
+                <ScalarProperty Name="ID_cli" ColumnName="ID_cli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
