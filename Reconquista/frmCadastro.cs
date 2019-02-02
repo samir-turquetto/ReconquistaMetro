@@ -17,7 +17,8 @@ namespace Reconquista
         Bem bem = new Bem();
         Telefone telefone = new Telefone();
         Anexo anexo = new Anexo();
-
+        List<Contato> contatos = new List<Contato>();
+        Contato contato = new Contato();
 
         public frmCadastro()
         {
@@ -215,20 +216,20 @@ namespace Reconquista
 
         private void btnAddContato_Click(object sender, EventArgs e)
         {
-            List<Contato> contatos = new List<Contato>();
-            Contato contato = new Contato();
-
             contato.contato = mtbContato.Text;
             contato.telefone = mtbTelefone.Text;
 
-            contatos.Add(contato);
-
-            foreach (Contato item in contatos)
-            {
-                mgContato.Rows.Add(item.contato, item.telefone);
-            }
+            contatos.Add(contato);           
+            mgContato.Rows.Add(contato.contato, contato.telefone);
+            
         }
 
-        //Continuar a validação do gridContato
+        private void btnRemoveContato_Click(object sender, EventArgs e)
+        {
+            contatos.Remove(contato);
+            mgContato.Rows.Remove(mgContato.CurrentRow);
+        }
+
+        //Continuar a validação do gridContatoSAmirr
     }
 }
