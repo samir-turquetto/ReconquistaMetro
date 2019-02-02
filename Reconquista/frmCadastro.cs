@@ -123,7 +123,7 @@ namespace Reconquista
                 {
                     mtbCPFCNPJ.Text = Convert.ToUInt64(mtbCPFCNPJ.Text).ToString(@"000\.000\.000\-00");
                 }
-                catch (Exception erro)
+                catch (Exception erro) // teste git 
                 {
                     MessageBox.Show(erro.Message);
                     mtbCPFCNPJ.Text = "";
