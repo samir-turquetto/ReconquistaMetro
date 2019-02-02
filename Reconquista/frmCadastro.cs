@@ -130,7 +130,7 @@ namespace Reconquista
                     mtbCPFCNPJ.Focus();
                     mtbCPFCNPJ.Select();
                 }
-
+                //teste
             }
             else if (mcbTipoCli.SelectedIndex == 1 && mtbCPFCNPJ.Text.Count() == 14)
             {
