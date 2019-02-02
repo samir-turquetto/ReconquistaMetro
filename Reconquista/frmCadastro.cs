@@ -82,14 +82,12 @@ namespace Reconquista
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                cliente.ID_cli = 0;
-                cliente.Nome_cli = mtbNomeCli.Text.Trim();
-                cliente.Tipo_cli = mcbTipoCli.SelectedIndex.ToString();
-                cliente.RG_IE_cli = mtbRGIE.Text.Trim();
-                cliente.Email_cli = mtbEmail.Text.Trim();
-                cliente.Obs_cli = rtbObsCli.Text;
+            cliente.ID_cli = 0;
+            cliente.Nome_cli = mtbNomeCli.Text.Trim();
+            cliente.Tipo_cli = mcbTipoCli.SelectedIndex.ToString();
+            cliente.RG_IE_cli = mtbRGIE.Text.Trim();            
+            cliente.Email_cli = mtbEmail.Text.Trim();
+            cliente.Obs_cli = rtbObsCli.Text;
 
                 bem.ID_bem = 0;
                 bem.Nome_bem = mtbBem.Text.Trim();
