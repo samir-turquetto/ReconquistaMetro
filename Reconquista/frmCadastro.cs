@@ -18,6 +18,7 @@ namespace Reconquista
         Telefone telefone = new Telefone();
         Anexo anexo = new Anexo();
         List<Telefone> telefones = new List<Telefone>();
+        int numero;
 
         public frmCadastro()
         {
@@ -44,6 +45,7 @@ namespace Reconquista
 
         private void frmCadastro_Load(object sender, EventArgs e)
         {
+            numero = 0;
             mcbTipoCli.SelectedIndex = 0;
             metroTabControl1.SelectedIndex = 0;
             limpaTela();
@@ -302,6 +304,16 @@ namespace Reconquista
             return cpf.EndsWith(digito);
         }
 
+        private void mbtPreencher_Click(object sender, EventArgs e)
+        {
+            
+            numero += 1;
+            mtbBem.Text = $"bem teste {numero}";
+            mtbCPFCNPJ.Text = "12345678909";
+            mtbNomeCli.Text = $"Teste {numero}";
+            mtbContato.Text = $"Teste {numero}";
+            mtbTelefone.Text = "11123456789";
+        }
     }
 }
 
