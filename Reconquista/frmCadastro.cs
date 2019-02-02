@@ -134,14 +134,14 @@ namespace Reconquista
                 {
                     mtbCPFCNPJ.Text = Convert.ToUInt64(mtbCPFCNPJ.Text).ToString(@"000\.000\.000\-00");
                 }
-                catch (Exception erro)
+                catch (Exception erro) // teste git 
                 {
                     MessageBox.Show(erro.Message);
                     mtbCPFCNPJ.Text = "";
                     mtbCPFCNPJ.Focus();
                     mtbCPFCNPJ.Select();
                 }
-
+                //teste
             }
             else if (mcbTipoCli.SelectedIndex == 1 && mtbCPFCNPJ.Text.Count() == 14)
             {
