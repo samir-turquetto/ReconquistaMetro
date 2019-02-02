@@ -82,12 +82,14 @@ namespace Reconquista
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            cliente.ID_cli = 0;
-            cliente.Nome_cli = mtbNomeCli.Text.Trim();
-            cliente.Tipo_cli = mcbTipoCli.SelectedIndex.ToString();
-            cliente.RG_IE_cli = mtbRGIE.Text.Trim();            
-            cliente.Email_cli = mtbEmail.Text.Trim();
-            cliente.Obs_cli = rtbObsCli.Text;
+            try
+            {
+                cliente.ID_cli = 0;
+                cliente.Nome_cli = mtbNomeCli.Text.Trim();
+                cliente.Tipo_cli = mcbTipoCli.SelectedIndex.ToString();
+                cliente.RG_IE_cli = mtbRGIE.Text.Trim();
+                cliente.Email_cli = mtbEmail.Text.Trim();
+                cliente.Obs_cli = rtbObsCli.Text;
 
                 bem.ID_bem = 0;
                 bem.Nome_bem = mtbBem.Text.Trim();
@@ -114,8 +116,8 @@ namespace Reconquista
                     db.Telefone.Add(item);
                     db.SaveChanges();
                 }
-                
-                
+
+
             }
             limpaTela();
             MessageBox.Show("Cadastro efetuado com sucesso!");
@@ -141,7 +143,7 @@ namespace Reconquista
             {
                 try
                 {
-                    
+
                     if (validaCpf(mtbCPFCNPJ.Text))
                     {
                         mtbCPFCNPJ.Text = Convert.ToUInt64(mtbCPFCNPJ.Text).ToString(@"000\.000\.000\-00");
@@ -161,7 +163,7 @@ namespace Reconquista
                     mtbCPFCNPJ.Focus();
                     mtbCPFCNPJ.Select();
                 }
-                
+
             }
             else if (mcbTipoCli.SelectedIndex == 1 && mtbCPFCNPJ.Text.Count() == 14)
             {
@@ -246,13 +248,13 @@ namespace Reconquista
         }
 
         private void btnAddContato_Click(object sender, EventArgs e)
-        {    
+        {
             if (mtbContato.Text != "" && mtbTelefone.Text != "")
             {
                 telefone.Contato_tel = mtbContato.Text;
                 telefone.Telefone1 = mtbTelefone.Text;
 
-                telefones.Add(telefone);                
+                telefones.Add(telefone);
                 mgContato.Rows.Add(telefone.Contato_tel, telefone.Telefone1);
 
                 mtbContato.Text = mtbTelefone.Text = "";
@@ -262,7 +264,7 @@ namespace Reconquista
 
         private void btnRemoveContato_Click(object sender, EventArgs e)
         {
-            contatos.Remove(contato);
+            telefones.Remove(telefone);
             mgContato.Rows.Remove(mgContato.CurrentRow);
         }
 
@@ -302,6 +304,6 @@ namespace Reconquista
             return cpf.EndsWith(digito);
         }
 
-        }    
     }
 }
+
