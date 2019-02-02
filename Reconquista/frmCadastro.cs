@@ -82,19 +82,26 @@ namespace Reconquista
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            cliente.ID_cli = 0;
-            cliente.Nome_cli = mtbNomeCli.Text.Trim();
-            cliente.Tipo_cli = mcbTipoCli.SelectedIndex.ToString();
-            cliente.RG_IE_cli = mtbRGIE.Text.Trim();
-            cliente.Email_cli = mtbEmail.Text.Trim();
-            cliente.Obs_cli = rtbObsCli.Text;
+            try
+            {
+                cliente.ID_cli = 0;
+                cliente.Nome_cli = mtbNomeCli.Text.Trim();
+                cliente.Tipo_cli = mcbTipoCli.SelectedIndex.ToString();
+                cliente.RG_IE_cli = mtbRGIE.Text.Trim();
+                cliente.Email_cli = mtbEmail.Text.Trim();
+                cliente.Obs_cli = rtbObsCli.Text;
 
-            bem.ID_bem = 0;
-            bem.Nome_bem = mtbBem.Text.Trim();
-            bem.Placa_bem = mtbPlaca.Text.Trim();
-            bem.Obs_bem = rtbObsBem.Text;
+                bem.ID_bem = 0;
+                bem.Nome_bem = mtbBem.Text.Trim();
+                bem.Placa_bem = mtbPlaca.Text.Trim();
+                bem.Obs_bem = rtbObsBem.Text;
 
-            clienteBem.Dta_vigencia = DateTime.Parse(dtpVigencia.Text);
+                clienteBem.Dta_vigencia = DateTime.Parse(dtpVigencia.Text);
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show(erro.Message);
+            }
 
             using (ReconquistaEntities db = new ReconquistaEntities())
             {
@@ -128,20 +135,35 @@ namespace Reconquista
         private void mtbCPFCNPJ_Leave(object sender, EventArgs e)
         {
             cliente.CPF_CNPJ_cli = mtbCPFCNPJ.Text.Trim();
+
+            if (mtbCPFCNPJ.Text == "")
+                return;
+
             if (mcbTipoCli.SelectedIndex == 0 && mtbCPFCNPJ.Text.Count() == 11)
             {
                 try
                 {
-                    mtbCPFCNPJ.Text = Convert.ToUInt64(mtbCPFCNPJ.Text).ToString(@"000\.000\.000\-00");
+                    
+                    if (validaCpf(mtbCPFCNPJ.Text))
+                    {
+                        mtbCPFCNPJ.Text = Convert.ToUInt64(mtbCPFCNPJ.Text).ToString(@"000\.000\.000\-00");
+                    }
+                    else
+                    {
+                        MessageBox.Show("CPF invalido!");
+                        mtbCPFCNPJ.Text = "";
+                        mtbCPFCNPJ.Focus();
+                        mtbCPFCNPJ.Select();
+                    }
                 }
-                catch (Exception erro) // teste git 
+                catch (Exception erro)
                 {
                     MessageBox.Show(erro.Message);
                     mtbCPFCNPJ.Text = "";
                     mtbCPFCNPJ.Focus();
                     mtbCPFCNPJ.Select();
                 }
-                //teste
+                
             }
             else if (mcbTipoCli.SelectedIndex == 1 && mtbCPFCNPJ.Text.Count() == 14)
             {
@@ -242,11 +264,45 @@ namespace Reconquista
 
         private void btnRemoveContato_Click(object sender, EventArgs e)
         {
-            if (mgContato.CurrentRow != null)
-            {
-                telefones.Remove(telefone);
-                mgContato.Rows.Remove(mgContato.CurrentRow);
-            }
+            contatos.Remove(contato);
+            mgContato.Rows.Remove(mgContato.CurrentRow);
+        }
+
+        public static bool validaCpf(string cpf)
+        {
+            int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            string tempCpf;
+            string digito;
+            int soma;
+            int resto;
+            cpf = cpf.Trim();
+            cpf = cpf.Replace(".", "").Replace("-", "");
+            if (cpf.Length != 11)
+                return false;
+            tempCpf = cpf.Substring(0, 9);
+            soma = 0;
+
+            for (int i = 0; i < 9; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador1[i];
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = resto.ToString();
+            tempCpf = tempCpf + digito;
+            soma = 0;
+            for (int i = 0; i < 10; i++)
+                soma += int.Parse(tempCpf[i].ToString()) * multiplicador2[i];
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito = digito + resto.ToString();
+            return cpf.EndsWith(digito);
+        }
 
         }    
     }
