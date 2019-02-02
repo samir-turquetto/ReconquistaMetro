@@ -77,6 +77,7 @@ namespace Reconquista
                 mtbEmail.Text = mtbNomeCli.Text = mtbPlaca.Text =
                 mtbRGIE.Text = mtbTelefone.Text = rtbObsBem.Text =
                 rtbObsCli.Text = "";
+            mgContato.Rows.Clear();
             btnCancelar.Enabled = false;
         }
 
@@ -133,8 +134,6 @@ namespace Reconquista
 
         private void mtbCPFCNPJ_Leave(object sender, EventArgs e)
         {
-            cliente.CPF_CNPJ_cli = mtbCPFCNPJ.Text.Trim();
-
             if (mtbCPFCNPJ.Text == "")
                 return;
 
@@ -186,6 +185,8 @@ namespace Reconquista
                 mtbCPFCNPJ.Focus();
                 mtbCPFCNPJ.Select();
             }
+
+            cliente.CPF_CNPJ_cli = mtbCPFCNPJ.Text.Trim();
 
         }
 
