@@ -108,12 +108,11 @@ namespace Reconquista
                 db.Cliente.Add(cliente);
                 db.Bem.Add(bem);
                 db.Cliente_Bem.Add(clienteBem);
-
-                db.SaveChanges();
-
-                foreach (Telefone item in telefones)
+                
+                foreach (Telefone telefone in telefones)
                 {
-                    db.Telefone.Add(item);
+                    telefone.ID_cli = cliente.ID_cli;                   
+                    db.Telefone.Add(telefone);
                     db.SaveChanges();
                 }
 
@@ -192,8 +191,6 @@ namespace Reconquista
 
         private void mtbTelefone_Leave(object sender, EventArgs e)
         {
-            telefone.Telefone1 = mtbTelefone.Text.Trim();
-            telefone.Contato_tel = mtbContato.Text.Trim();
             if (mtbTelefone.Text.Count() == 11)
             {
                 try
@@ -251,6 +248,7 @@ namespace Reconquista
         {
             if (mtbContato.Text != "" && mtbTelefone.Text != "")
             {
+                var telefone = new Telefone();
                 telefone.Contato_tel = mtbContato.Text;
                 telefone.Telefone1 = mtbTelefone.Text;
 
