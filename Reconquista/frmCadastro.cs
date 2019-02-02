@@ -131,9 +131,12 @@ namespace Reconquista
                     else
                     {
                         MessageBox.Show("CPF invalido!");
+                        mtbCPFCNPJ.Text = "";
+                        mtbCPFCNPJ.Focus();
+                        mtbCPFCNPJ.Select();
                     }
                 }
-                catch (Exception erro) // teste git 
+                catch (Exception erro)
                 {
                     MessageBox.Show(erro.Message);
                     mtbCPFCNPJ.Text = "";
@@ -236,7 +239,6 @@ namespace Reconquista
 
         private void btnRemoveContato_Click(object sender, EventArgs e)
         {
-
             contatos.Remove(contato);
             mgContato.Rows.Remove(mgContato.CurrentRow);
         }
