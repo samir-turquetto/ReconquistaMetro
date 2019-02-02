@@ -76,7 +76,6 @@
     <Compile Include="Cliente_Bem.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Contato.cs" />
     <Compile Include="frmCadastro.cs">
       <SubType>Form</SubType>
     </Compile>

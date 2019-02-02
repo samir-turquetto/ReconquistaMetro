@@ -17,24 +17,24 @@ namespace Reconquista
         Bem bem = new Bem();
         Telefone telefone = new Telefone();
         Anexo anexo = new Anexo();
-        List<Contato> contatos = new List<Contato>();
-        Contato contato = new Contato();
+        List<Telefone> telefones = new List<Telefone>();
 
         public frmCadastro()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
-        private void metroComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void mcbTipoPessoa(object sender, EventArgs e)
         {
             if (mcbTipoCli.SelectedIndex == 0)
             {
                 lblRGIE.Text = "R.G.";
                 lblCPFCPNJ.Text = "C.P.F.*";
                 mtbRGIE.Text = "";
-                mtbCPFCNPJ.Text = "";                
-            }        
-            if (mcbTipoCli.SelectedIndex == 1) {
+                mtbCPFCNPJ.Text = "";
+            }
+            if (mcbTipoCli.SelectedIndex == 1)
+            {
                 lblRGIE.Text = "Inscrição Estadual";
                 lblCPFCPNJ.Text = "C.N.P.J*";
                 mtbRGIE.Text = "";
@@ -46,13 +46,14 @@ namespace Reconquista
         {
             mcbTipoCli.SelectedIndex = 0;
             metroTabControl1.SelectedIndex = 0;
-            limpaTela();    
-        }       
+            limpaTela();
+        }
 
         private void btnVoltar_Click(object sender, EventArgs e)
         {
-            if (metroTabControl1.SelectedIndex > 0) {
-                metroTabControl1.SelectedIndex = metroTabControl1.SelectedIndex - 1; 
+            if (metroTabControl1.SelectedIndex > 0)
+            {
+                metroTabControl1.SelectedIndex = metroTabControl1.SelectedIndex - 1;
             }
         }
 
@@ -67,13 +68,15 @@ namespace Reconquista
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             limpaTela();
-            
+
         }
 
         void limpaTela()
         {
-            mtbBem.Text = mtbCodBem.Text = mtbCodCli.Text = mtbContato.Text = mtbCPFCNPJ.Text = mtbEmail.Text = mtbNomeCli.Text = mtbPlaca.Text
-                = mtbRGIE.Text = mtbTelefone.Text = rtbObsBem.Text = rtbObsCli.Text = "";
+            mtbBem.Text = mtbCodBem.Text = mtbCodCli.Text = mtbContato.Text = mtbCPFCNPJ.Text =
+                mtbEmail.Text = mtbNomeCli.Text = mtbPlaca.Text =
+                mtbRGIE.Text = mtbTelefone.Text = rtbObsBem.Text =
+                rtbObsCli.Text = "";
             btnCancelar.Enabled = false;
         }
 
@@ -82,7 +85,7 @@ namespace Reconquista
             cliente.ID_cli = 0;
             cliente.Nome_cli = mtbNomeCli.Text.Trim();
             cliente.Tipo_cli = mcbTipoCli.SelectedIndex.ToString();
-            cliente.RG_IE_cli = mtbRGIE.Text.Trim();            
+            cliente.RG_IE_cli = mtbRGIE.Text.Trim();
             cliente.Email_cli = mtbEmail.Text.Trim();
             cliente.Obs_cli = rtbObsCli.Text;
 
@@ -95,14 +98,21 @@ namespace Reconquista
 
             using (ReconquistaEntities db = new ReconquistaEntities())
             {
-                db.Cliente.Add(cliente);                
-                db.Bem.Add(bem);                
-                db.Cliente_Bem.Add(clienteBem);                
-                db.Telefone.Add(telefone);
+                db.Cliente.Add(cliente);
+                db.Bem.Add(bem);
+                db.Cliente_Bem.Add(clienteBem);
+
                 db.SaveChanges();
+
+                foreach (Telefone item in telefones)
+                {
+                    db.Telefone.Add(item);
+                    db.SaveChanges();
+                }
+                
+                
             }
             limpaTela();
-            // populaGridContato();
             MessageBox.Show("Cadastro efetuado com sucesso!");
         }
 
@@ -149,7 +159,7 @@ namespace Reconquista
 
             }
             else
-            {                
+            {
                 MessageBox.Show("Formato inválido, por favor verifique.");
                 mtbCPFCNPJ.Text = "";
                 mtbCPFCNPJ.Focus();
@@ -181,7 +191,8 @@ namespace Reconquista
                 try
                 {
                     mtbTelefone.Text = Convert.ToUInt64(mtbTelefone.Text).ToString(@"\(00\) 0000\-0000");
-                } catch (Exception erro)
+                }
+                catch (Exception erro)
                 {
                     mtbTelefone.Text = "";
                     MessageBox.Show(erro.Message);
@@ -192,7 +203,7 @@ namespace Reconquista
             }
             else
             {
-                mtbTelefone.Text = "";             
+                mtbTelefone.Text = "";
             }
 
 
@@ -203,7 +214,7 @@ namespace Reconquista
             if (mcbTipoCli.SelectedIndex == 0 && mtbCPFCNPJ.Text.Count() == 14)
             {
                 mtbCPFCNPJ.Text = mtbCPFCNPJ.Text.Replace("-", "");
-                mtbCPFCNPJ.Text = mtbCPFCNPJ.Text.Replace(".", "");                            
+                mtbCPFCNPJ.Text = mtbCPFCNPJ.Text.Replace(".", "");
             }
             else if (mcbTipoCli.SelectedIndex == 1 && mtbCPFCNPJ.Text.Count() == 18)
             {
@@ -215,21 +226,28 @@ namespace Reconquista
         }
 
         private void btnAddContato_Click(object sender, EventArgs e)
-        {
-            contato.contato = mtbContato.Text;
-            contato.telefone = mtbTelefone.Text;
+        {    
+            if (mtbContato.Text != "" && mtbTelefone.Text != "")
+            {
+                telefone.Contato_tel = mtbContato.Text;
+                telefone.Telefone1 = mtbTelefone.Text;
 
-            contatos.Add(contato);           
-            mgContato.Rows.Add(contato.contato, contato.telefone);
-            
+                telefones.Add(telefone);                
+                mgContato.Rows.Add(telefone.Contato_tel, telefone.Telefone1);
+
+                mtbContato.Text = mtbTelefone.Text = "";
+            }
+
         }
 
         private void btnRemoveContato_Click(object sender, EventArgs e)
         {
-            contatos.Remove(contato);
-            mgContato.Rows.Remove(mgContato.CurrentRow);
-        }
+            if (mgContato.CurrentRow != null)
+            {
+                telefones.Remove(telefone);
+                mgContato.Rows.Remove(mgContato.CurrentRow);
+            }
 
-        //Continuar a validação do gridContatoSAmirr
+        }    
     }
 }

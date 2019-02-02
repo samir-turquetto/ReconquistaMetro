@@ -560,7 +560,7 @@
             this.mcbTipoCli.Size = new System.Drawing.Size(121, 25);
             this.mcbTipoCli.TabIndex = 2;
             this.mcbTipoCli.UseSelectable = true;
-            this.mcbTipoCli.SelectedIndexChanged += new System.EventHandler(this.metroComboBox1_SelectedIndexChanged);
+            this.mcbTipoCli.SelectedIndexChanged += new System.EventHandler(this.mcbTipoPessoa);
             // 
             // label2
             // 
