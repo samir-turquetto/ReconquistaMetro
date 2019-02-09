@@ -4,14 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ReconquistaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ReconquistaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Anexo">
           <Key>
             <PropertyRef Name="ID_anexo" />
           </Key>
           <Property Name="ID_anexo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Arquivo_anexo" Type="varbinary(max)" Nullable="false" />
+          <Property Name="Arquivo_anexo" Type="varbinary(max)" />
           <Property Name="ID_bem" Type="int" Nullable="false" />
+          <Property Name="Nome_Arquivo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ext_Arquivo" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <EntityType Name="Bem">
           <Key>
@@ -49,7 +51,7 @@
             <PropertyRef Name="ID_tel" />
           </Key>
           <Property Name="ID_tel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Telefone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefone" Type="varchar" MaxLength="50" />
           <Property Name="Contato_tel" Type="varchar" MaxLength="50" />
           <Property Name="ID_cli" Type="int" Nullable="false" />
         </EntityType>
@@ -140,8 +142,7 @@
             <End Role="Telefone" EntitySet="Telefone" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ReconquistaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -150,9 +151,11 @@
             <PropertyRef Name="ID_anexo" />
           </Key>
           <Property Name="ID_anexo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Arquivo_anexo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="Arquivo_anexo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ID_bem" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Bem" Relationship="Self.FK__Anexo__ID_bem__29572725" FromRole="Anexo" ToRole="Bem" />
+          <Property Name="Nome_Arquivo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ext_Arquivo" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Bem">
           <Key>
@@ -198,7 +201,7 @@
             <PropertyRef Name="ID_tel" />
           </Key>
           <Property Name="ID_tel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Telefone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefone1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Contato_tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID_cli" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK__Telefone__ID_cli__267ABA7A" FromRole="Telefone" ToRole="Cliente" />
@@ -299,6 +302,8 @@
           <EntitySetMapping Name="Anexo">
             <EntityTypeMapping TypeName="ReconquistaModel.Anexo">
               <MappingFragment StoreEntitySet="Anexo">
+                <ScalarProperty Name="Ext_Arquivo" ColumnName="Ext_Arquivo" />
+                <ScalarProperty Name="Nome_Arquivo" ColumnName="Nome_Arquivo" />
                 <ScalarProperty Name="ID_anexo" ColumnName="ID_anexo" />
                 <ScalarProperty Name="Arquivo_anexo" ColumnName="Arquivo_anexo" />
                 <ScalarProperty Name="ID_bem" ColumnName="ID_bem" />

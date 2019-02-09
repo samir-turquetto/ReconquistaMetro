@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Reconquista
         Anexo anexo = new Anexo();
         List<Telefone> telefones = new List<Telefone>();
         List<Bem> bens = new List<Bem>();
+        List<Anexo> anexos = new List<Anexo>();
         int numero;
 
         public frmCadastro()
@@ -112,7 +114,13 @@ namespace Reconquista
                 db.Cliente.Add(cliente);
                 db.Bem.Add(bem);
                 db.Cliente_Bem.Add(clienteBem);
-                
+
+                foreach (Anexo att in anexos)
+                {
+                    att.ID_bem = bem.ID_bem;
+                    db.Anexo.Add(att);
+                    db.SaveChanges();
+                }
                 foreach (Telefone telefone in telefones)
                 {
                     telefone.ID_cli = cliente.ID_cli;                   
@@ -132,6 +140,15 @@ namespace Reconquista
             using (ReconquistaEntities db = new ReconquistaEntities())
             {
                 mgContato.DataSource = db.Telefone.ToList<Telefone>();
+            }
+        }
+
+        void populaGridAnexo()
+        {
+            mgAnexo.AutoGenerateColumns = false;
+            using (ReconquistaEntities db = new ReconquistaEntities())
+            {
+                mgAnexo.DataSource = db.Anexo.ToList<Anexo>();
             }
         }
 
@@ -337,6 +354,24 @@ namespace Reconquista
                 mtbBem.Text = mtbPlaca.Text = "";
 
             }
+        }
+
+        private void btnBddAnexo_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog arquivo = new OpenFileDialog();
+            var anexo = new Anexo();
+
+            if (arquivo.ShowDialog() == DialogResult.OK)
+            {
+                var sample = new FileInfo(arquivo.FileName);
+                if (sample.Exists) {
+                    anexo.Arquivo_anexo = new byte[sample.Length];
+                    anexo.Nome_Arquivo = sample.Name;
+                    anexo.Ext_Arquivo = sample.Extension;
+                    anexos.Add(anexo);
+                    mgAnexo.Rows.Add(anexo.Nome_Arquivo);                   
+                }
+            }           
         }
     }
 }

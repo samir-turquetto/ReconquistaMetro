@@ -79,22 +79,22 @@
             this.label10 = new System.Windows.Forms.Label();
             this.tabAnexo = new MetroFramework.Controls.MetroTabPage();
             this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.metroGrid3 = new MetroFramework.Controls.MetroGrid();
+            this.btnBddAnexo = new System.Windows.Forms.Button();
+            this.mgAnexo = new MetroFramework.Controls.MetroGrid();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnProximo = new System.Windows.Forms.Button();
             this.btnVoltar = new System.Windows.Forms.Button();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.PreencheCampo = new MetroFramework.Controls.MetroButton();
+            this.Nome_Arquivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.metroTabControl1.SuspendLayout();
             this.tabCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mgContato)).BeginInit();
             this.tabBem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mgBem)).BeginInit();
             this.tabAnexo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.metroGrid3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mgAnexo)).BeginInit();
             this.metroPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,7 +107,7 @@
             this.metroTabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Bold;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
+            this.metroTabControl1.SelectedIndex = 2;
             this.metroTabControl1.Size = new System.Drawing.Size(970, 476);
             this.metroTabControl1.TabIndex = 0;
             this.metroTabControl1.UseSelectable = true;
@@ -855,8 +855,8 @@
             // tabAnexo
             // 
             this.tabAnexo.Controls.Add(this.button8);
-            this.tabAnexo.Controls.Add(this.button9);
-            this.tabAnexo.Controls.Add(this.metroGrid3);
+            this.tabAnexo.Controls.Add(this.btnBddAnexo);
+            this.tabAnexo.Controls.Add(this.mgAnexo);
             this.tabAnexo.HorizontalScrollbarBarColor = true;
             this.tabAnexo.HorizontalScrollbarHighlightOnWheel = false;
             this.tabAnexo.HorizontalScrollbarSize = 10;
@@ -881,26 +881,28 @@
             this.button8.TabIndex = 33;
             this.button8.UseVisualStyleBackColor = false;
             // 
-            // button9
+            // btnBddAnexo
             // 
-            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Image = ((System.Drawing.Image)(resources.GetObject("button9.Image")));
-            this.button9.Location = new System.Drawing.Point(872, 21);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(76, 59);
-            this.button9.TabIndex = 32;
-            this.button9.UseVisualStyleBackColor = false;
+            this.btnBddAnexo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnBddAnexo.FlatAppearance.BorderSize = 0;
+            this.btnBddAnexo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBddAnexo.Image = ((System.Drawing.Image)(resources.GetObject("btnBddAnexo.Image")));
+            this.btnBddAnexo.Location = new System.Drawing.Point(872, 21);
+            this.btnBddAnexo.Name = "btnBddAnexo";
+            this.btnBddAnexo.Size = new System.Drawing.Size(76, 59);
+            this.btnBddAnexo.TabIndex = 32;
+            this.btnBddAnexo.UseVisualStyleBackColor = false;
+            this.btnBddAnexo.Click += new System.EventHandler(this.btnBddAnexo_Click);
             // 
-            // metroGrid3
+            // mgAnexo
             // 
-            this.metroGrid3.AllowUserToDeleteRows = false;
-            this.metroGrid3.AllowUserToResizeRows = false;
-            this.metroGrid3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.metroGrid3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.metroGrid3.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.metroGrid3.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.mgAnexo.AllowUserToAddRows = false;
+            this.mgAnexo.AllowUserToDeleteRows = false;
+            this.mgAnexo.AllowUserToResizeRows = false;
+            this.mgAnexo.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.mgAnexo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.mgAnexo.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.mgAnexo.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -908,8 +910,10 @@
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGrid3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            this.metroGrid3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mgAnexo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.mgAnexo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mgAnexo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Nome_Arquivo});
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -917,14 +921,15 @@
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.metroGrid3.DefaultCellStyle = dataGridViewCellStyle8;
-            this.metroGrid3.EnableHeadersVisualStyles = false;
-            this.metroGrid3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.metroGrid3.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.metroGrid3.Location = new System.Drawing.Point(3, 21);
-            this.metroGrid3.Name = "metroGrid3";
-            this.metroGrid3.ReadOnly = true;
-            this.metroGrid3.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.mgAnexo.DefaultCellStyle = dataGridViewCellStyle8;
+            this.mgAnexo.EnableHeadersVisualStyles = false;
+            this.mgAnexo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.mgAnexo.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.mgAnexo.Location = new System.Drawing.Point(3, 21);
+            this.mgAnexo.MultiSelect = false;
+            this.mgAnexo.Name = "mgAnexo";
+            this.mgAnexo.ReadOnly = true;
+            this.mgAnexo.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -932,11 +937,11 @@
             dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGrid3.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.metroGrid3.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.metroGrid3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.metroGrid3.Size = new System.Drawing.Size(863, 348);
-            this.metroGrid3.TabIndex = 31;
+            this.mgAnexo.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.mgAnexo.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.mgAnexo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.mgAnexo.Size = new System.Drawing.Size(863, 348);
+            this.mgAnexo.TabIndex = 31;
             // 
             // metroPanel1
             // 
@@ -1007,15 +1012,6 @@
             this.btnVoltar.UseVisualStyleBackColor = false;
             this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
             // 
-            // metroButton1
-            // 
-            this.metroButton1.Location = new System.Drawing.Point(0, 0);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(75, 23);
-            this.metroButton1.TabIndex = 37;
-            this.metroButton1.Text = "metroButton1";
-            this.metroButton1.UseSelectable = true;
-            // 
             // PreencheCampo
             // 
             this.PreencheCampo.Location = new System.Drawing.Point(349, 24);
@@ -1026,13 +1022,20 @@
             this.PreencheCampo.UseSelectable = true;
             this.PreencheCampo.Click += new System.EventHandler(this.mbtPreencher_Click);
             // 
+            // Nome_Arquivo
+            // 
+            this.Nome_Arquivo.DataPropertyName = "Nome_Arquivo";
+            this.Nome_Arquivo.HeaderText = "Nome do Arquivo";
+            this.Nome_Arquivo.Name = "Nome_Arquivo";
+            this.Nome_Arquivo.ReadOnly = true;
+            this.Nome_Arquivo.Width = 820;
+            // 
             // frmCadastro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1010, 608);
             this.Controls.Add(this.PreencheCampo);
-            this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.metroTabControl1);
             this.Name = "frmCadastro";
@@ -1046,7 +1049,7 @@
             this.tabBem.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mgBem)).EndInit();
             this.tabAnexo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.metroGrid3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mgAnexo)).EndInit();
             this.metroPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1092,8 +1095,8 @@
         private System.Windows.Forms.Button btnAddBem;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private MetroFramework.Controls.MetroGrid metroGrid3;
+        private System.Windows.Forms.Button btnBddAnexo;
+        private MetroFramework.Controls.MetroGrid mgAnexo;
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnSalvar;
@@ -1102,7 +1105,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Contato_tel;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fone;
         private MetroFramework.Controls.MetroTextBox mtbCPFCNPJ;
-        private MetroFramework.Controls.MetroButton metroButton1;
         private MetroFramework.Controls.MetroButton PreencheCampo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nome_Arquivo;
     }
 }
