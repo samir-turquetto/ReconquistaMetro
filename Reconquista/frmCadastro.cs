@@ -18,6 +18,7 @@ namespace Reconquista
         Telefone telefone = new Telefone();
         Anexo anexo = new Anexo();
         List<Telefone> telefones = new List<Telefone>();
+        List<Bem> bens = new List<Bem>();
         int numero;
 
         public frmCadastro()
@@ -305,14 +306,36 @@ namespace Reconquista
         }
 
         private void mbtPreencher_Click(object sender, EventArgs e)
-        {
-            
+        {    
             numero += 1;
             mtbBem.Text = $"bem teste {numero}";
             mtbCPFCNPJ.Text = "12345678909";
             mtbNomeCli.Text = $"Teste {numero}";
             mtbContato.Text = $"Teste {numero}";
             mtbTelefone.Text = "11123456789";
+        }
+
+        public static string RetiraMascara(string Codigo)
+        {
+            return Codigo.Replace(".", string.Empty).Replace("-", string.Empty).Replace("/", string.Empty);
+        }
+
+        private void btnAddBem_Click(object sender, EventArgs e)
+        {
+            if (mtbBem.Text != "")
+            {
+                var bem = new Bem();
+                bem.Nome_bem = mtbBem.Text;
+                bem.Placa_bem = mtbPlaca.Text;
+                //bem.
+                 
+                bens.Add(bem);
+                mgBem.Rows.Add(bem.Nome_bem, bem.Placa_bem);
+                //q porra é essa
+
+                mtbBem.Text = mtbPlaca.Text = "";
+
+            }
         }
     }
 }

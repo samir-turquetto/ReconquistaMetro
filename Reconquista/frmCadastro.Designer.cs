@@ -65,7 +65,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabBem = new MetroFramework.Controls.MetroTabPage();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnAddBem = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.rtbObsBem = new System.Windows.Forms.RichTextBox();
@@ -107,7 +107,7 @@
             this.metroTabControl1.FontWeight = MetroFramework.MetroTabControlWeight.Bold;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(970, 476);
             this.metroTabControl1.TabIndex = 0;
             this.metroTabControl1.UseSelectable = true;
@@ -589,7 +589,7 @@
             // tabBem
             // 
             this.tabBem.Controls.Add(this.button4);
-            this.tabBem.Controls.Add(this.button3);
+            this.tabBem.Controls.Add(this.btnAddBem);
             this.tabBem.Controls.Add(this.label12);
             this.tabBem.Controls.Add(this.label11);
             this.tabBem.Controls.Add(this.rtbObsBem);
@@ -625,17 +625,18 @@
             this.button4.TabIndex = 30;
             this.button4.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // btnAddBem
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(875, 62);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(76, 59);
-            this.button3.TabIndex = 16;
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnAddBem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnAddBem.FlatAppearance.BorderSize = 0;
+            this.btnAddBem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddBem.Image = ((System.Drawing.Image)(resources.GetObject("btnAddBem.Image")));
+            this.btnAddBem.Location = new System.Drawing.Point(875, 62);
+            this.btnAddBem.Name = "btnAddBem";
+            this.btnAddBem.Size = new System.Drawing.Size(76, 59);
+            this.btnAddBem.TabIndex = 16;
+            this.btnAddBem.UseVisualStyleBackColor = false;
+            this.btnAddBem.Click += new System.EventHandler(this.btnAddBem_Click);
             // 
             // label12
             // 
@@ -1088,7 +1089,7 @@
         private System.Windows.Forms.RichTextBox rtbObsBem;
         private MetroFramework.Controls.MetroGrid mgBem;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnAddBem;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
