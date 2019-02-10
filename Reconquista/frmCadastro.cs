@@ -21,6 +21,7 @@ namespace Reconquista
         List<Telefone> telefones = new List<Telefone>();
         List<Bem> bens = new List<Bem>();
         List<Anexo> anexos = new List<Anexo>();
+        List<Cliente_Bem> cliente_Bens = new List<Cliente_Bem>();
         int numero;
 
         public frmCadastro()
@@ -83,7 +84,11 @@ namespace Reconquista
                 mtbRGIE.Text = mtbTelefone.Text = rtbObsBem.Text =
                 rtbObsCli.Text = "";
             mgContato.Rows.Clear();
+            mgAnexo.Rows.Clear();
+            btnRemoveContato.Enabled = false;
+            btnRemoveAnexo.Enabled = false;
             btnCancelar.Enabled = false;
+            btnRemoveBem.Enabled = false;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -95,14 +100,7 @@ namespace Reconquista
                 cliente.Tipo_cli = mcbTipoCli.SelectedIndex.ToString();
                 cliente.RG_IE_cli = mtbRGIE.Text.Trim();
                 cliente.Email_cli = mtbEmail.Text.Trim();
-                cliente.Obs_cli = rtbObsCli.Text;
-
-                bem.ID_bem = 0;
-                bem.Nome_bem = mtbBem.Text.Trim();
-                bem.Placa_bem = mtbPlaca.Text.Trim();
-                bem.Obs_bem = rtbObsBem.Text;
-
-                clienteBem.Dta_vigencia = DateTime.Parse(dtpVigencia.Text);
+                cliente.Obs_cli = rtbObsCli.Text;                
             }
             catch (Exception erro)
             {
@@ -111,10 +109,19 @@ namespace Reconquista
 
             using (ReconquistaEntities db = new ReconquistaEntities())
             {
-                db.Cliente.Add(cliente);
-                db.Bem.Add(bem);
-                db.Cliente_Bem.Add(clienteBem);
-
+                db.Cliente.Add(cliente);                
+                
+                foreach (Bem bem in bens)
+                {
+                    bem.ID_cli = cliente.ID_cli;
+                    db.Bem.Add(bem);                    
+                }
+                foreach (Cliente_Bem cb in cliente_Bens)
+                {
+                    cb.ID_cli = cliente.ID_cli;
+                    cb.ID_bem = bem.ID_bem;
+                    db.Cliente_Bem.Add(cb);                
+                }
                 foreach (Anexo att in anexos)
                 {
                     att.ID_bem = bem.ID_bem;
@@ -277,6 +284,7 @@ namespace Reconquista
                 mgContato.Rows.Add(telefone.Contato_tel, telefone.Telefone1);
 
                 mtbContato.Text = mtbTelefone.Text = "";
+                btnRemoveContato.Enabled = true;
             }
 
         }
@@ -285,6 +293,10 @@ namespace Reconquista
         {
             telefones.Remove(telefone);
             mgContato.Rows.Remove(mgContato.CurrentRow);
+            if (mgContato.Rows.Count < 1)
+            {
+                btnRemoveContato.Enabled = false;
+            }
         }
 
         public static bool validaCpf(string cpf)
@@ -345,18 +357,24 @@ namespace Reconquista
                 var bem = new Bem();
                 bem.Nome_bem = mtbBem.Text;
                 bem.Placa_bem = mtbPlaca.Text;
-                //bem.
+                bem.Obs_bem = rtbObsBem.Text;
                  
                 bens.Add(bem);
-                mgBem.Rows.Add(bem.Nome_bem, bem.Placa_bem);
-                //q porra é essa
 
-                mtbBem.Text = mtbPlaca.Text = "";
+                var clienteBem = new Cliente_Bem();
+                clienteBem.Dta_vigencia = DateTime.ParseExact(dtpVigencia.Text, "dd/MM/yyyy",System.Globalization.CultureInfo.InvariantCulture);
 
+                cliente_Bens.Add(clienteBem);
+
+                mgBem.Rows.Add(bem.Nome_bem, bem.Placa_bem, clienteBem.Dta_vigencia.ToString("dd/MM/yyyy"));                
+
+                mtbBem.Text = mtbPlaca.Text = rtbObsBem.Text = "";
+
+                btnRemoveBem.Enabled = true;
             }
         }
 
-        private void btnBddAnexo_Click(object sender, EventArgs e)
+        private void btnAddAnexo_Click(object sender, EventArgs e)
         {
             OpenFileDialog arquivo = new OpenFileDialog();
             var anexo = new Anexo();
@@ -369,9 +387,31 @@ namespace Reconquista
                     anexo.Nome_Arquivo = sample.Name;
                     anexo.Ext_Arquivo = sample.Extension;
                     anexos.Add(anexo);
-                    mgAnexo.Rows.Add(anexo.Nome_Arquivo);                   
+                    mgAnexo.Rows.Add(anexo.Nome_Arquivo);
+                    btnRemoveAnexo.Enabled = true;
                 }
             }           
+        }
+
+        private void btnRemoveAnexo_Click(object sender, EventArgs e)
+        {
+            anexos.Remove(anexo);
+            mgAnexo.Rows.Remove(mgAnexo.CurrentRow);
+            if (mgAnexo.Rows.Count < 1)
+            {
+                btnRemoveAnexo.Enabled = false;
+            }
+        }
+
+        private void btnRemoveBem_Click(object sender, EventArgs e)
+        {
+            bens.Remove(bem);
+            cliente_Bens.Remove(clienteBem);
+            mgBem.Rows.Remove(mgBem.CurrentRow);
+            if (mgBem.Rows.Count < 1)
+            {
+                btnRemoveBem.Enabled = false;
+            }
         }
     }
 }
